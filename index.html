@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today Vibe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        #vibe-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        #emoji {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="vibe-container">
+        <div id="emoji"></div>
+        <h1 id="vibe-title">Today's Vibe</h1>
+        <p id="vibe-message">Let's see what today brings!</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById('vibe-container');
+            const title = document.getElementById('vibe-title');
+            const message = document.getElementById('vibe-message');
+            const emoji = document.getElementById('emoji');
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const events = [
+                { 
+                    name: 'New Year', 
+                    month: 0, 
+                    day: 1, 
+                    emoji: '🎉', 
+                    styles: { backgroundColor: '#00bfff', color: '#ffffff' }, 
+                    message: "Wishing you a year full of happiness and prosperity." 
+                },
+                { 
+                    name: 'Valentine\'s Day', 
+                    month: 1, 
+                    day: 14, 
+                    emoji: '💖', 
+                    styles: { backgroundColor: '#ffccd5', color: '#e60073' }, 
+                    message: "Spread the love and joy today." 
+                },
+                { 
+                    name: 'Halloween', 
+                    month: 9, 
+                    day: 31, 
+                    emoji: '🎃', 
+                    styles: { backgroundColor: '#ff7518', color: '#000000' }, 
+                    message: "Trick or treat, have a spooky night!" 
+                },
+                { 
+                    name: 'Christmas', 
+                    month: 11, 
+                    day: 25, 
+                    emoji: '🎄', 
+                    styles: { backgroundColor: '#008000', color: '#ffffff' }, 
+                    message: "Enjoy the festive season with joy and peace." 
+                },
+                {
+                    name: 'Independence Day',
+                    month: 6,
+                    day: 4,
+                    emoji: '🇺🇸',
+                    styles: { backgroundColor: '#ff9933', color: '#ffffff' },
+                    message: "Celebrate freedom and unity."
+                },
+                {
+                    name: 'Easter',
+                    month: 3,
+                    day: 17,
+                    emoji: '🐰',
+                    styles: { backgroundColor: '#ffff00', color: '#000000' },
+                    message: "Wishing you a joyful and blessed Easter."
+                },
+                {
+                    name: 'Thanksgiving',
+                    month: 10,
+                    day: 25,
+                    emoji: '🦃',
+                    styles: { backgroundColor: '#ffa500', color: '#ffffff' },
+                    message: "Gratitude turns what we have into enough."
+                }
+            ];
+
+            // Additional Events
+            const additionalEvents = [
+                {
+                    name: 'International Women\'s Day',
+                    month: 2,
+                    day: 8,
+                    emoji: '👩‍🎤',
+                    styles: { backgroundColor: '#ff66cc', color: '#ffffff' },
+                    message: "Celebrate the social, economic, cultural, and political achievements of women."
+                },
+                {
+                    name: 'Earth Day',
+                    month: 3,
+                    day: 22,
+                    emoji: '🌍',
+                    styles: { backgroundColor: '#008000', color: '#ffffff' },
+                    message: "Let's take care of our planet."
+                },
+                {
+                    name: 'World Environment Day',
+                    month: 5,
+                    day: 5,
+                    emoji: '🌱',
+                    styles: { backgroundColor: '#006699', color: '#ffffff' },
+                    message: "Join the global movement to protect nature."
+                },
+                {
+                    name: 'International Day of Peace',
+                    month: 8,
+                    day: 21,
+                    emoji: '☮️',
+                    styles: { backgroundColor: '#3399ff', color: '#ffffff' },
+                    message: "Peace begins with you."
+                },
+                {
+                    name: 'International Day of Happiness',
+                    month: 2,
+                    day: 20,
+                    emoji: '😊',
+                    styles: { backgroundColor: '#ffcc00', color: '#000000' },
+                    message: "Spread happiness and joy wherever you go."
+                }
+            ];
+
+            const vibes = [];
+
+            events.forEach(event => {
+                const eventDates = [
+                    new Date(currentYear - 1, event.month, event.day),
+                    new Date(currentYear, event.month, event.day),
+                    new Date(currentYear + 1, event.month, event.day)
+                ];
+
+                let minDiff = Infinity;
+
+                eventDates.forEach(date => {
+                    const diff = Math.abs(today - date);
+                    const daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                    if (daysDiff < minDiff) {
+                        minDiff = daysDiff;
+                    }
+                });
+
+                if (Math.random() < 1 / minDiff) {
+                    vibes.push(event);
+                }
+            });
+
+            additionalEvents.forEach(event => {
+                const eventDates = [
+                    new Date(currentYear - 1, event.month, event.day),
+                    new Date(currentYear, event.month, event.day),
+                    new Date(currentYear + 1, event.month, event.day)
+                ];
+
+                let minDiff = Infinity;
+
+                eventDates.forEach(date => {
+                    const diff = Math.abs(today - date);
+                    const daysDiff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                    if (daysDiff < minDiff) {
+                        minDiff = daysDiff;
+                    }
+                });
+
+                if (Math.random() < 1 / minDiff) {
+                    vibes.push(event);
+                }
+            });
+
+            const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+
+            container.style.backgroundColor = randomVibe.styles.backgroundColor;
+            container.style.color = randomVibe.styles.color;
+            title.innerText = randomVibe.name;
+            message.innerText = randomVibe.message;
+            emoji.innerText = randomVibe.emoji;
+        });
+    </script>
+</body>
+</html>
